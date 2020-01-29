@@ -1,0 +1,124 @@
+<html>
+    <link rel="stylesheet" href="./style.css">
+    <head>
+        <title>Hangman</title>
+    </head>
+    <body>
+        <div class="container">
+                <button class="newgame" onclick="window.location.reload();">
+                    NEW GAME
+                </button>
+                <p class="hint">
+                    HINT: Colors
+                </p>
+            
+            <img class="hangmanimg" src="img/0.jpg" alt="hanging">
+            <div class="keyboard">
+                <p id= word class="p"></p>
+                <br>
+                <div class="row">
+                        <button value="q" id="q" class="key">Q</button>
+                        <button value="w" id="w"class="key">W</button>
+                        <button value="e" id="e" class="key">E</button>
+                        <button value="r" id="r" class="key">R</button>
+                        <button value="t" id="t" class="key">T</button>
+                        <button value="y" id="y" class="key">Y</button>
+                        <button value="u" id="u" class="key">U</button>
+                        <button value="i" id="i" class="key">I</button>
+                        <button value="o" id="o" class="key">O</button>
+                        <button value="p" id="p" class="key">P</button>
+                </div>
+                <div class="row">
+                    <button value="a" id="a" class="key">A</button>
+                    <button value="s" id="s" class="key">S</button>
+                    <button value="d" id="d" class="key">D</button>
+                    <button value="f" id="f" class="key">F</button>
+                    <button value="g" id="g" class="key">G</button>
+                    <button value="h" id="h" class="key">H</button>
+                    <button value="j" id="j" class="key">J</button>
+                    <button value="k" id="k" class="key">K</button>
+                    <button value="l" id="l" class="key">L</button>
+                </div>
+                <div class="row">
+                    <button value="z" id="z" class="key">Z</button>
+                    <button value="x" id="x" class="key">X</button>
+                    <button value="c" id="c" class="key">C</button>
+                    <button value="v" id="v" class="key">V</button>
+                    <button value="b" id="b" class="key">B</button>
+                    <button value="n" id="n" class="key">N</button>
+                    <button value="m" id="m" class="key">M</button>
+                </div>
+            </div>
+        </div>
+
+    </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+
+    var words=["blue", "green", "red", "orange", "black", "white", "violet", "indigo", "yellow", "purple"];
+        var word=words[Math.floor(Math.random()*words.length)];
+        var answerArray=[];
+        var guessesleft=0;
+        console.log(word);
+
+        var setupanswerarray=function(word)
+        {
+            return word;
+        }
+
+        var answerarray2=setupanswerarray();
+
+
+
+        for(var i=0;i<word.length;i++)
+        {
+                answerArray[i]= '_';
+            
+        }
+        document.getElementById("word").innerHTML = answerArray.join(' ');
+        $("button").click(function()
+        {
+            this.style.backgroundColor="red";
+
+            window.x = $(this).val();
+            for(var i=0;i<word.length;i++)
+            {
+
+                if(word[i].includes(window.x))
+                {
+                    answerArray[i]=window.x;
+                }
+                document.getElementById("word").innerHTML = answerArray.join(' ');
+            }
+            var strince=answerArray.join('');
+
+            if(strince===word)
+            {
+                alert("YOU WON");
+            }
+
+        });
+
+        $("button").click(function()
+        {
+            window.x = $(this).val();
+                if(!word.includes(window.x))
+                {
+                    guessesleft++;
+                    document.getElementsByClassName("hangmanimg")[0].src="./img/" +guessesleft+ ".jpg";
+                }
+                
+                if(guessesleft>=6)
+                {
+                    document.getElementsByClassName("hangmanimg")[0].src="./img/6.jpg";
+                    alert("YOU LOSE");
+                }
+                document.getElementById("word").innerHTML = answerArray.join(' ');
+           
+        });
+
+
+
+</script>
+</html>
